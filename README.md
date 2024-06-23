@@ -1,6 +1,7 @@
 #  VUE-EmployeeManagement
 
-本项目使用Veu3开发，后端+ [Spring-boot](https://github.com/benzeneringlq/EmployeeManagement)
+本项目是作者在2024年6月23日左右实训期间编写，这是前端代码  
+使用Veu3开发，后端代码： [Spring-boot](https://github.com/benzeneringlq/EmployeeManagement)
 
 ## Recommended IDE Setup
 
