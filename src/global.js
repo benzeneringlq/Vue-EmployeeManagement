@@ -32,6 +32,18 @@ const useGlobalData = defineStore('globalData', {
     positionMap: new Map(),
   }),
   actions: {
+    async deletePosition(data) {
+      let result = await this.callApi('/api/data/deletePosition ', data, 'text/plain')
+      return result
+    },
+    async updatePosition(data) {
+      let result = await this.callApi('/api/data/updatePosition ', data, 'application/json')
+      return result
+    },
+    async insertPosition(data) {
+      let result = await this.callApi('/api/data/insertPosition ', data, 'application/json')
+      return result
+    },
     async selectPosition(filter) {
       let result = await this.callApi('/api/data/selectPosition ', filter, 'application/json')
       return result
