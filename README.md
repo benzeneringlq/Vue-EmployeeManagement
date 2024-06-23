@@ -1,6 +1,6 @@
 #  VUE-EmployeeManagement
 
-This template should help get you started developing with Vue 3 in Vite.
+本项目使用Veu3开发，后端+ [Spring-boot](https://github.com/benzeneringlq/EmployeeManagement)
 
 ## Recommended IDE Setup
 
