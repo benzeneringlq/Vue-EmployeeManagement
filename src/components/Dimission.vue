@@ -26,6 +26,10 @@ const filter = reactive({
     cause: ''
 })
 async function submit() {
+    // 把空白日期改成null,避免com.google.gson.JsonSyntaxException: Failed parsing '' as Date; at path $.startDate
+    filter.dimDate==""?filter.dimDate:null
+    filter.startDate==""?filter.startDate:null
+    filter.endDate==""?filter.endDate:null
     let result = await globaldata.selectDimission(filter)
     selectResult.value = [...result]
     console.log(selectResult.value)

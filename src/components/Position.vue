@@ -151,7 +151,7 @@ onBeforeMount(async () => {
                         </template>
 
                         <template v-slot:default="{ isActive }">
-                            <v-card title="新增">
+                            <v-card title="修改">
                                 <v-form ref="updateForm">
                                     <v-text-field label="岗位名称" v-model="newer.name"></v-text-field>
 

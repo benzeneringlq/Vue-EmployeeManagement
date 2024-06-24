@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onBeforeMount } from 'vue';
+import { ref, reactive,  onBeforeMount } from 'vue';
 import Maintem from './MainTemplate.vue'
 import { useToast } from "vue-toastification";
 import { useGlobalData } from "../global.js";
@@ -15,18 +15,22 @@ const headers = [
     { title: '试用期开始时间', align: 'end', key: 'startDate' },
     { title: '试用期结束时间', align: 'end', key: 'endDate' }
 ]
+
 const tableSelected = ref([])
 const selectResult = ref([])
 const filter = reactive({
-    probationStaffID: '',
-    name: '',
-    departmentID: '',
-    positionID: '',
-    startDate: '',
-    endDate: '',
-    status: ''
+    probationStaffID: null,
+    name: null,
+    departmentID: null,
+    positionID: null,
+    startDate: null,
+    endDate: null,
+    status: null
 })
 async function submit() {
+    // 把空白日期改成null,避免com.google.gson.JsonSyntaxException: Failed parsing '' as Date; at path $.startDate
+    filter.startDate==""?filter.startDate:null
+    filter.endDate==""?filter.endDate:null
     let result = await globaldata.selectProbation(filter)
     selectResult.value = [...result]
     console.log(selectResult.value)

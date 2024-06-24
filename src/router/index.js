@@ -71,12 +71,12 @@ const router = createRouter({
       name: 'StaffInfo',
       component: () => import('../components/Staffinfo.vue')
     }
-    // ,
-    // {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: () => import('../components/Staffinfotest.vue')
-    // }
+    ,
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../components/AbandonNewTemplate.vue')
+    }
   ]
 })
 

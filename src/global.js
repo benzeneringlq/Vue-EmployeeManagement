@@ -27,11 +27,16 @@ const useGlobalData = defineStore('globalData', {
   state: () => ({
     Probationstatus: ref([]),
     departments: ref([]),
-    posotions: ref([]),
+    positions: ref([]),
     departmentMap: new Map(),
     positionMap: new Map(),
   }),
   actions: {
+
+    async deleteStaff(data) {
+      let result = await this.callApi('/api/data/deleteStaff ', data, 'text/plain')
+      return result
+    },
     async deletePosition(data) {
       let result = await this.callApi('/api/data/deletePosition ', data, 'text/plain')
       return result
