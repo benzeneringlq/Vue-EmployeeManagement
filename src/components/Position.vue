@@ -40,7 +40,7 @@ async function update() {
         establishmentQuantity: newer.establishmentQuantity
     }
     let result = await globaldata.updatePosition(data)
-    toast.info(JSON.stringify(result, null, 2));
+    toast.info("修改成功"+JSON.stringify(result, null, 2));
     submit()
 }
 async function deleteFun() {
@@ -88,7 +88,7 @@ onBeforeMount(async () => {
                 </v-row>
                 <v-row justify="end">
                     <v-col cols="2">
-                        <v-btn color="#21a675" block @click="submit">提交</v-btn>
+                        <v-btn color="#21a675" block @click="submit">查询</v-btn>
                     </v-col>
 
                     <v-col cols="2">
@@ -119,8 +119,8 @@ onBeforeMount(async () => {
 
                                     <v-text-field label="岗位名称" v-model="newer.name"></v-text-field>
 
-                                    <v-autocomplete label="岗位类型" v-model="newer.type" :items="positionType">
-                                    </v-autocomplete>
+                                    <v-combobox label="岗位类型" v-model="newer.type" :items="positionType">
+                                    </v-combobox>
 
                                     <v-text-field label="岗位编制" v-model="newer.establishmentQuantity"></v-text-field>
 
@@ -175,7 +175,7 @@ onBeforeMount(async () => {
 
 
             <v-data-table v-model="tableSelected" :headers="headers" :items="selectResult" item-value="positionID"
-                items-per-page="5" return-object show-select>
+                items-per-page="15" return-object show-select>
                 <template v-slot:item.foundingTime="{ value }">
                     {{ (new Date(value)).toLocaleDateString() }}
                 </template>

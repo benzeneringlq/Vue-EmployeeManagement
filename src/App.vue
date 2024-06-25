@@ -94,7 +94,7 @@ onBeforeMount(async () => {
           </template>
 
           <v-list-item base-color="#d85916" v-for="(item, i) in group3item" :key="i" :append-icon="item.icon"
-            :title="item.title" :value="item.title">
+            :title="item.title" :value="item.title" :to="item.route">
           </v-list-item>
         </v-list-group>
       </v-list>

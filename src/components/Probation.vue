@@ -29,8 +29,8 @@ const filter = reactive({
 })
 async function submit() {
     // 把空白日期改成null,避免com.google.gson.JsonSyntaxException: Failed parsing '' as Date; at path $.startDate
-    filter.startDate==""?filter.startDate:null
-    filter.endDate==""?filter.endDate:null
+    // filter.startDate==""?filter.startDate:null
+    // filter.endDate==""?filter.endDate:null
     let result = await globaldata.selectProbation(filter)
     selectResult.value = [...result]
     console.log(selectResult.value)
@@ -77,7 +77,7 @@ onBeforeMount(async () => {
                 </v-row>
                 <v-row justify="end">
                     <v-col cols="2">
-                        <v-btn color="#21a675" block @click="submit">提交</v-btn>
+                        <v-btn color="#21a675" block @click="submit">查询</v-btn>
                     </v-col>
 
                     <v-col cols="2">
@@ -96,7 +96,7 @@ onBeforeMount(async () => {
         </template> -->
         <template #panel-result-body>
             <v-data-table v-model="tableSelected" :headers="headers" :items="selectResult" item-value="staffID"
-                items-per-page="5" return-object show-select>
+                items-per-page="15" return-object show-select>
                 <template v-slot:item.startDate="{ value }">
                     {{ (new Date(value)).toLocaleDateString() }}
                 </template>

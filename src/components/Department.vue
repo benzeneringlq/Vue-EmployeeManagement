@@ -28,7 +28,7 @@ async function submit() {
     let result = await globaldata.selectDepartment(filter)
     selectResult.value = [...result]
     // console.log(selectResult.value)
-    toast.info(JSON.stringify(result, null, 2));
+    // toast.info(JSON.stringify(result, null, 2));
     return result
 }
 onBeforeMount(async () => {
@@ -78,7 +78,7 @@ onBeforeMount(async () => {
         </template> -->
         <template #panel-result-body>
             <v-data-table v-model="tableSelected" :headers="headers" :items="selectResult" item-value="departmentID"
-                items-per-page="5" return-object show-select>
+                items-per-page="15" return-object show-select>
                 <template v-slot:item.foundingTime="{ value }">
                     {{ (new Date(value)).toLocaleDateString() }}
                 </template>

@@ -32,29 +32,60 @@ const useGlobalData = defineStore('globalData', {
     positionMap: new Map(),
   }),
   actions: {
-
+    async dimStaff (data){
+      let result = await this.callApi('/api/staff/dimStaff ', data, 'text/plain')
+      return result
+    },
+    async updateStaff (data){
+      let result = await this.callApi('/api/staff/changeDepartmentAndPosition ', data, 'text/plain')
+      return result
+    },
+    async changeDepartmentAndPosition(data) {
+      let result = await this.callApi('/api/staff/changeDepartmentAndPosition ', data, 'text/plain')
+      return result
+    },
+    async getPosTransForm(data) {
+      let result = await this.callApi('/api/form/getPosTransForm ', data, 'text/plain')
+      return result
+    },
+    async getDepTransForm(data) {
+      let result = await this.callApi('/api/form/getDepTransForm ', data, 'text/plain')
+      return result
+    },
+    async getDimForm(data) {
+      let result = await this.callApi('/api/form/getDimForm ', data, 'text/plain')
+      return result
+    },
+    async getNewForm(data) {
+      let result = await this.callApi('/api/form/getNewForm ', data, 'text/plain')
+      return result
+    },
+    async getMonthlyForm(data) {
+      let result = await this.callApi('/api/form/getMonthlyForm ', data, 'text/plain')
+      return result
+    },
     async deleteStaff(data) {
-      let result = await this.callApi('/api/data/deleteStaff ', data, 'text/plain')
+      let result = await this.callApi('/api/staff/deleteStaff ', data, 'text/plain')
       return result
     },
     async deletePosition(data) {
-      let result = await this.callApi('/api/data/deletePosition ', data, 'text/plain')
+      let result = await this.callApi('/api/position/deletePosition ', data, 'text/plain')
       return result
     },
     async updatePosition(data) {
-      let result = await this.callApi('/api/data/updatePosition ', data, 'application/json')
+      let result = await this.callApi('/api/position/updatePosition ', data, 'application/json')
       return result
     },
     async insertPosition(data) {
-      let result = await this.callApi('/api/data/insertPosition ', data, 'application/json')
+      let result = await this.callApi('/api/position/insertPosition ', data, 'application/json')
       return result
     },
     async selectPosition(filter) {
-      let result = await this.callApi('/api/data/selectPosition ', filter, 'application/json')
+      let result = await this.callApi('/api/position/selectPosition ', filter, 'application/json')
       return result
     },
     async selectDepartment(filter) {
-      let result = await this.callApi('/api/data/selectDepartment ', filter, 'application/json')
+      let result = await this.callApi('/api/department/selectDepartment ', filter, 'application/json')
       return result
     },
     async selectDimission(filter) {
@@ -82,8 +113,9 @@ const useGlobalData = defineStore('globalData', {
       this.positions.forEach((item) => {
         this.positionMap.set(item.ID, item.name)
       })
-      result = await this.callApi('/api/probation/getProbationstatus', "1", 'text/plain')
-      this.Probationstatus = [...new Set(result.map((item) => item.status))]
+      result = await this.callApi('/api/probation/getProbationStatus', "1", 'text/plain')
+      // this.Probationstatus = [...new Set(result.map((item) => item.status))] 已改成查询时去重
+      this.Probationstatus = [...result]
       return
     },
     async callApi(argsUrl, argsData, argsContentType) {

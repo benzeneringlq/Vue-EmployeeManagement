@@ -7,33 +7,44 @@ const globaldata = useGlobalData()
 const toast = useToast();
 
 const headers = [
-    { title: '编号', align: 'start', key: 'departmentID', },
-    { title: '名称', align: 'end', key: 'name' },
-    { title: '类型', align: 'end', key: 'type' },
-    { title: '电话', align: 'end', key: 'TEL' },
-    { title: '传真', align: 'end', key: 'fax' },
-    { title: '描述', align: 'end', key: 'description' },
-    { title: '上级部门', align: 'end', key: 'superior' },
-    { title: '成立时间', align: 'end', key: 'foundingTime' }
+    { title: '部门名称', align: 'start', key: 'departmentID', },
+    { title: '月初人数', align: 'end', key: 'beginMonth' },
+    { title: '月末人数', align: 'end', key: 'endMonth' },
+    { title: '本月新入职', align: 'end', key: 'newEntry' },
+    { title: '本月离职', align: 'end', key: 'dim' },
+    { title: '本月调入', align: 'end', key: 'in' },
+    { title: '本月调出', align: 'end', key: 'out' },
+    { title: '研究生', align: 'end', key: 'master' },
+    { title: '本科生', align: 'end', key: 'graduate' },
+    { title: '大专', align: 'end', key: 'college' },
+    { title: '高中及以下', align: 'end', key: 'highSchool' }
 ]
 const tableSelected = ref([])
 const selectResult = ref([])
 const departmentType = ref([])
-const filter = reactive({
-    id: '',
-    name: '',
-    type: ''
-})
+const datePicker = ref(new Date().toISOString().split('T')[0])
 async function submit() {
-    let result = await globaldata.selectDepartment(filter)
+    let date = new Date(datePicker.value)
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let startDate = new Date(year, month, 1);
+    let endDate = new Date(year, month + 1, 0);
+    let data = {
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0]
+    }
+    console.log(data)
+    let result = await globaldata.getMonthlyForm(data)
     selectResult.value = [...result]
     // console.log(selectResult.value)
-    toast.info(JSON.stringify(result, null, 2));
+    // toast.info(JSON.stringify(result, null, 2));
     return result
 }
 onBeforeMount(async () => {
-    let result = await submit()
-    departmentType.value = [...new Set(result.map((item) => item.type))]
+    // let a=new Date().toISOString().split('T')[0]
+    // datePicker.value=a
+    submit()
+    // departmentType.value = [...new Set(result.map((item) => item.type))]
     // console.log(departmentType.value)
 })
 </script>
@@ -46,15 +57,8 @@ onBeforeMount(async () => {
         <template v-slot:panel-body>
             <v-form ref="form">
                 <v-row dense>
-                    <v-col cols="3">
-                        <v-text-field label="部门编号" v-model="filter.id"></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                        <v-text-field label="部门名称" v-model="filter.name"></v-text-field>
-                    </v-col>
-                    <v-col cols="2">
-                        <v-select label="部门类型" v-model="filter.type" :items="departmentType">
-                        </v-select>
+                    <v-col cols="12" md="6">
+                        <v-text-field label="月份" v-model="datePicker" type="date"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row justify="end">
@@ -79,8 +83,8 @@ onBeforeMount(async () => {
         <template #panel-result-body>
             <v-data-table v-model="tableSelected" :headers="headers" :items="selectResult" item-value="departmentID"
                 items-per-page="5" return-object show-select>
-                <template v-slot:item.foundingTime="{ value }">
-                    {{ (new Date(value)).toLocaleDateString() }}
+                <template v-slot:item.departmentID="{ value }">
+                    {{ globaldata.departmentMap.get(value.toString()) }}
                 </template>
             </v-data-table>
 

@@ -27,13 +27,14 @@ const filter = reactive({
 })
 async function submit() {
     // 把空白日期改成null,避免com.google.gson.JsonSyntaxException: Failed parsing '' as Date; at path $.startDate
-    filter.dimDate==""?filter.dimDate:null
-    filter.startDate==""?filter.startDate:null
-    filter.endDate==""?filter.endDate:null
+    // filter.dimDate==""?filter.dimDate:null
+    // filter.startDate==""?filter.startDate:null
+    // filter.endDate==""?filter.endDate:null
+    console.log(filter)
     let result = await globaldata.selectDimission(filter)
     selectResult.value = [...result]
     console.log(selectResult.value)
-    toast.info(JSON.stringify(selectResult.value, null, 2));
+    // toast.info(JSON.stringify(selectResult.value, null, 2));
     return result
 }
 onBeforeMount(async () => {
@@ -68,7 +69,7 @@ onBeforeMount(async () => {
                         <v-text-field label="开始日期" v-model="filter.startDate" type="date"></v-text-field>
                     </v-col>
                     <v-col cols="4">
-                        <v-text-field label="结束日期" v-model="filter.endData" type="date"></v-text-field>
+                        <v-text-field label="结束日期" v-model="filter.endDate" type="date"></v-text-field>
                     </v-col>
                     <v-col cols="2">
                         <v-select label="离职类型" v-model="filter.cause" :items="dimissionCause" item-title="cause"
@@ -77,7 +78,7 @@ onBeforeMount(async () => {
                 </v-row>
                 <v-row justify="end">
                     <v-col cols="2">
-                        <v-btn color="#21a675" block @click="submit">提交</v-btn>
+                        <v-btn color="#21a675" block @click="submit">查询</v-btn>
                     </v-col>
 
                     <v-col cols="2">
@@ -96,7 +97,7 @@ onBeforeMount(async () => {
         </template> -->
         <template #panel-result-body>
             <v-data-table v-model="tableSelected" :headers="headers" :items="selectResult"
-                items-per-page="5" return-object show-select>
+                items-per-page="15" return-object show-select>
                 <template v-slot:item.dimDate="{ value }">
                     {{ (new Date(value)).toLocaleDateString() }}
                 </template>
