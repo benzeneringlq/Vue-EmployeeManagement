@@ -47,6 +47,9 @@ onBeforeMount(async () => {
         <template v-slot:header>
             {{ this.$options.name }}
         </template>
+        <template v-slot:breadcrumb>
+            <v-breadcrumbs class="breadcrumb" :items="['人员管理', '离职信息']"></v-breadcrumbs>
+        </template>
         <template v-slot:panel-heading>请输入</template>
         <template v-slot:panel-body>
             <v-form ref="form">

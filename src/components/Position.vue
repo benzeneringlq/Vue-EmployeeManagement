@@ -16,11 +16,6 @@ const headers = [
 const selectResult = ref([])
 const tableSelected = ref([])
 const selectResultLength = computed(() => tableSelected.value.length)
-const tableSelectedID = computed(() => {
-    if (tableSelected.value.length == 1) {
-        tableSelected.value[0].positionID
-    }
-})
 const positionType = ref([])
 const newer = reactive({
     name: '',
@@ -71,6 +66,9 @@ onBeforeMount(async () => {
     <Maintem>
         <template v-slot:header>
             {{ this.$options.name }}
+        </template>
+        <template v-slot:breadcrumb>
+            <v-breadcrumbs class="breadcrumb" :items="['岗位管理']"></v-breadcrumbs>
         </template>
         <template v-slot:panel-heading>请输入</template>
         <template v-slot:panel-body>
@@ -180,9 +178,6 @@ onBeforeMount(async () => {
                     {{ (new Date(value)).toLocaleDateString() }}
                 </template>
             </v-data-table>
-            <h1>{{ tableSelectedID }}</h1>
-            <pre>{{ selectResultLength }}</pre>
-            <pre>{{ tableSelected }}</pre>
         </template>
     </Maintem>
 </template>

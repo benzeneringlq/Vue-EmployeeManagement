@@ -3,9 +3,8 @@ import { ref, reactive, onBeforeMount } from 'vue';
 import Maintem from './MainTemplate.vue'
 import { useToast } from "vue-toastification";
 import { useGlobalData } from "../global.js";
+import ConvertToCSV from '../myFunction/ConvertToCSV'
 const globaldata = useGlobalData()
-const toast = useToast();
-
 const headers = [
     { title: '编号', align: 'start', key: 'staffID', },
     { title: '原部门名称', align: 'end', key: 'oldID' },
@@ -40,6 +39,9 @@ onBeforeMount(async () => {
     <Maintem>
         <template v-slot:header>
             {{ this.$options.name }}
+        </template>
+        <template v-slot:breadcrumb>
+            <v-breadcrumbs class="breadcrumb" :items="['报表管理', '岗位调动报表']"></v-breadcrumbs>
         </template>
         <template v-slot:panel-heading>请输入</template>
         <template v-slot:panel-body>
@@ -88,8 +90,7 @@ onBeforeMount(async () => {
                     {{ globaldata.departmentMap.get(value) }}
                 </template>
             </v-data-table>
-
-            <pre>{{ tableSelected }}</pre>
+            <v-btn @click="ConvertToCSV(headers,selectResult,'部门调动报表.csv')">生成报表</v-btn>
         </template>
     </Maintem>
 </template>

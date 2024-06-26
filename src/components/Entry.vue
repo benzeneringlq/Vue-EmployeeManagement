@@ -20,6 +20,8 @@ const employee = reactive({
     workStartDate: '',
     employmentType: '',
     source: '',
+    TEL:'',
+    home:'',
 })
 // const departments = ref([]);
 const employmentTypes = ['正式', '临时'];
@@ -40,6 +42,8 @@ function test() {
     employee['workStartDate'] = '2023-06-15'
     employee['employmentType'] = '正式'
     employee['source'] = '校园招聘'
+    employee['TEL']='17666666666'
+    employee['home']='大连民族大学'
     toast.info("OK!");
 }
 async function submit() {
@@ -60,9 +64,9 @@ onBeforeMount(async () => {
 })
 </script>
 <template>
-    <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="The #1 Vue UI Library" width="1000">
+    <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="入职管理" width="1000">
         <template v-slot:title>
-            <span class="font-weight-black">Welcome to Vuetify</span>
+            <span class="font-weight-black">入职管理</span>
         </template>
         <v-form ref="form" v-model="valid">
             <v-container>
@@ -101,6 +105,14 @@ onBeforeMount(async () => {
                     <v-col cols="12" md="6">
                         <v-select label="人员来源" v-model="employee.source" :items="sources"
                             :rules="[v => !!v || '请选择人员来源']" required></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field label="手机号" v-model="employee.TEL" :rules="[value => (value?.length > 9 && /[0-9-]+/.test(value)) || '请填写有效手机号']"
+                            required></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field label="家庭住址" v-model="employee.home" :rules="[v => !!v || '家庭住址是必填的']"
+                            required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>

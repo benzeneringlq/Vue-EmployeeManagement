@@ -32,64 +32,84 @@ const useGlobalData = defineStore('globalData', {
     positionMap: new Map(),
   }),
   actions: {
-    async dimStaff (data){
-      let result = await this.callApi('/api/staff/dimStaff ', data, 'text/plain')
+    async register(data) {
+      let result = await this.callApi('/api/admin/register', data, 'text/plain')
       return result
     },
-    async updateStaff (data){
-      let result = await this.callApi('/api/staff/changeDepartmentAndPosition ', data, 'text/plain')
+    async login(data) {
+      let result = await this.callApi('/api/admin/login', data, 'text/plain')
+      return result
+    },
+    async dimStaff(data) {
+      let result = await this.callApi('/api/staff/dimStaff', data, 'text/plain')
+      return result
+    },
+    async updateStaff(data) {
+      let result = await this.callApi('/api/staff/changeDepartmentAndPosition', data, 'text/plain')
       return result
     },
     async changeDepartmentAndPosition(data) {
-      let result = await this.callApi('/api/staff/changeDepartmentAndPosition ', data, 'text/plain')
+      let result = await this.callApi('/api/staff/changeDepartmentAndPosition', data, 'text/plain')
       return result
     },
     async getPosTransForm(data) {
-      let result = await this.callApi('/api/form/getPosTransForm ', data, 'text/plain')
+      let result = await this.callApi('/api/form/getPosTransForm', data, 'text/plain')
       return result
     },
     async getDepTransForm(data) {
-      let result = await this.callApi('/api/form/getDepTransForm ', data, 'text/plain')
+      let result = await this.callApi('/api/form/getDepTransForm', data, 'text/plain')
       return result
     },
     async getDimForm(data) {
-      let result = await this.callApi('/api/form/getDimForm ', data, 'text/plain')
+      let result = await this.callApi('/api/form/getDimForm', data, 'text/plain')
       return result
     },
     async getNewForm(data) {
-      let result = await this.callApi('/api/form/getNewForm ', data, 'text/plain')
+      let result = await this.callApi('/api/form/getNewForm', data, 'text/plain')
       return result
     },
     async getMonthlyForm(data) {
-      let result = await this.callApi('/api/form/getMonthlyForm ', data, 'text/plain')
+      let result = await this.callApi('/api/form/getMonthlyForm', data, 'text/plain')
       return result
     },
     async deleteStaff(data) {
-      let result = await this.callApi('/api/staff/deleteStaff ', data, 'text/plain')
+      let result = await this.callApi('/api/staff/deleteStaff', data, 'text/plain')
       return result
     },
     async deletePosition(data) {
-      let result = await this.callApi('/api/position/deletePosition ', data, 'text/plain')
+      let result = await this.callApi('/api/position/deletePosition', data, 'text/plain')
       return result
     },
     async updatePosition(data) {
-      let result = await this.callApi('/api/position/updatePosition ', data, 'application/json')
+      let result = await this.callApi('/api/position/updatePosition', data, 'application/json')
       return result
     },
     async insertPosition(data) {
-      let result = await this.callApi('/api/position/insertPosition ', data, 'application/json')
+      let result = await this.callApi('/api/position/insertPosition', data, 'application/json')
       return result
     },
     async selectPosition(filter) {
-      let result = await this.callApi('/api/position/selectPosition ', filter, 'application/json')
+      let result = await this.callApi('/api/position/selectPosition', filter, 'application/json')
+      return result
+    },
+    async deleteDepartment(data) {
+      let result = await this.callApi('/api/department/deleteDepartment', data, 'text/plain')
+      return result
+    },
+    async updateDepartment(data) {
+      let result = await this.callApi('/api/department/updateDepartment', data, 'application/json')
+      return result
+    },
+    async insertDepartment(data) {
+      let result = await this.callApi('/api/department/insertDepartment', data, 'application/json')
       return result
     },
     async selectDepartment(filter) {
-      let result = await this.callApi('/api/department/selectDepartment ', filter, 'application/json')
+      let result = await this.callApi('/api/department/selectDepartment', filter, 'application/json')
       return result
     },
     async selectDimission(filter) {
-      let result = await this.callApi('/api/dimission/selectDimission ', filter, 'application/json')
+      let result = await this.callApi('/api/dimission/selectDimission', filter, 'application/json')
       return result
     },
     async selectProbation(filter) {
@@ -124,7 +144,7 @@ const useGlobalData = defineStore('globalData', {
         maxBodyLength: Infinity,
         url: argsUrl, //'/api/data/getdata',
         headers: {
-          'Content-Type': argsContentType // 'text/plain'
+          'Content-Type': argsContentType //'text/plain'
         },
         data: argsData
       }

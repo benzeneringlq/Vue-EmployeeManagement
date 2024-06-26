@@ -1,6 +1,6 @@
 <script setup>
 
-import { reactive, ref, onBeforeMount } from 'vue'; // 从Vue导入ref和reactive
+import {  ref, onBeforeMount } from 'vue'; // 从Vue导入ref和reactive
 import { RouterView } from 'vue-router'
 import { useGlobalData } from "./global.js"
 
@@ -44,7 +44,7 @@ onBeforeMount(async () => {
       <!-- <RouterLink to="/" class="text-h5 color: inherit">
         <v-app-bar-title class="text-h5">网络书店</v-app-bar-title>
       </RouterLink> -->
-      <v-app-bar-title class="text-h5" style="cursor: pointer" @click="$router.push('/')">网络书店</v-app-bar-title>
+      <v-app-bar-title class="text-h5" style="cursor: pointer" @click="$router.push('/')">员工管理系统</v-app-bar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>

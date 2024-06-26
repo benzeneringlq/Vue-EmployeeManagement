@@ -15,7 +15,6 @@ const headers = [
     { title: '联系方式', align: 'end', key: 'TEL' },
     { title: '地址', align: 'end', key: 'home' }
 ]
-
 const filter = reactive({
     staffID: '',
     name: '',
@@ -66,7 +65,7 @@ async function changeDepartmentAndPosition() {
     let data = {
         staffID: tableSelected.value[0].staffID,
         departmentID: changer.departmentID,
-        positionID:changer.positionID,
+        positionID: changer.positionID,
         cause: changer.cause
     }
     let result = await globaldata.changeDepartmentAndPosition(data)
@@ -76,13 +75,13 @@ async function changeDepartmentAndPosition() {
 async function deleteFun() {
     let result = await globaldata.deleteStaff(tableSelected.value[0].staffID)
     toast.info("删除成功:" + result);
-    tableSelected.value=[]
+    tableSelected.value = []
     submit()
 }
 async function dimFun() {
     let result = await globaldata.dimStaff(tableSelected.value[0].staffID)
     toast.info("离职成功:" + result);
-    tableSelected.value=[]
+    tableSelected.value = []
     submit()
 }
 onBeforeMount(async () => {
@@ -94,6 +93,9 @@ onBeforeMount(async () => {
     <Maintem>
         <template v-slot:header>
             {{ this.$options.name }}
+        </template>
+        <template v-slot:breadcrumb>
+            <v-breadcrumbs class="breadcrumb" :items="['人员管理', '人员信息']"></v-breadcrumbs>
         </template>
         <template v-slot:panel-heading>请输入</template>
         <template v-slot:panel-body>
@@ -146,13 +148,15 @@ onBeforeMount(async () => {
                     </v-btn>
                 </v-col>
                 <v-col cols="1">
-                    <v-btn :disabled="tableSelected.length != 1||tableSelected[0].status=='离职'" color="error" @click="dimFun">
+                    <v-btn :disabled="tableSelected.length != 1 || tableSelected[0].status == '离职'" color="error"
+                        @click="dimFun">
                         离职
                     </v-btn>
                 </v-col>
                 <v-col><v-dialog max-width="500">
                         <template v-slot:activator="{ props: activatorProps }">
-                            <v-btn :disabled="tableSelected.length != 1" color="warning" v-bind="activatorProps" @click="changer.TEL=tableSelected[0].TEL;changer.home=tableSelected[0].home">
+                            <v-btn :disabled="tableSelected.length != 1" color="warning" v-bind="activatorProps"
+                                @click="changer.TEL = tableSelected[0].TEL; changer.home = tableSelected[0].home">
                                 修改
                             </v-btn>
                         </template>
@@ -160,8 +164,10 @@ onBeforeMount(async () => {
                         <template v-slot:default="{ isActive }">
                             <v-card title="修改" height="2000px">
                                 <v-form ref="updateForm">
-                                    <v-text-field label="联系方式" v-model="changer.TEL"></v-text-field>
-                                    <v-text-field label="地址" v-model="changer.home"></v-text-field>
+                                    <v-text-field label="联系方式" v-model="changer.TEL"
+                                        :rules="[value => (value?.length > 9 && /[0-9-]+/.test(value)) || '请填写有效手机号']"></v-text-field>
+                                    <v-text-field label="地址" v-model="changer.home"
+                                        :rules="[v => !!v || '家庭住址是必填的']"></v-text-field>
                                 </v-form>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -190,7 +196,8 @@ onBeforeMount(async () => {
                                     <v-select label="岗位" v-model="changer.positionID" :items="globaldata.positions"
                                         item-title="name" item-value="ID">
                                     </v-select>
-                                    <v-text-field :disabled="(changer.positionID == tableSelected[0].positionID)&&(changer.departmentID == tableSelected[0].departmentID)"
+                                    <v-text-field
+                                        :disabled="(changer.positionID == tableSelected[0].positionID) && (changer.departmentID == tableSelected[0].departmentID)"
                                         label="调岗原因" v-model="changer.cause"></v-text-field>
                                 </v-form>
                                 <v-card-actions>
@@ -213,8 +220,6 @@ onBeforeMount(async () => {
                     {{ globaldata.positionMap.get(value) }}
                 </template>
             </v-data-table>
-            <!-- <h1>{{ tableSelectedID }}</h1>
-            <pre>{{ tableSelected }}</pre> -->
         </template>
     </Maintem>
 </template>
