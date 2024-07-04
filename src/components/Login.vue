@@ -68,7 +68,8 @@ function submit() {
     }
 }
 function reset() {
-    form.reset()
+    console.log(form)
+    form.value.reset()
 }
 
 </script>
